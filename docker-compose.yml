@@ -1,0 +1,75 @@
+services:
+  apache:
+    build:
+      context: ./docker/php
+      dockerfile: Dockerfile
+    container_name: ftxampp_apache
+    ports:
+      - "80:80"
+    volumes:
+      - ./htdocs:/var/www/html
+      - ./docker/php/php.ini:/usr/local/etc/php/php.ini
+    depends_on:
+      - mariadb
+      - redis
+    restart: unless-stopped
+    networks:
+      - lamp-network
+      
+  mariadb:
+    image: mariadb:latest
+    container_name: ftxampp_mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - ./data/mariadb_data:/var/lib/mysql
+    restart: unless-stopped
+    networks:
+      - lamp-network
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: ftxampp_phpmyadmin
+    depends_on:
+      - mariadb
+    ports:
+      - "8080:80"
+    environment:
+      PMA_HOST: mariadb
+      PMA_PORT: 3306
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    restart: unless-stopped
+    networks:
+      - lamp-network
+
+  redis:
+    image: redis:alpine
+    command: ["redis-server", "--requirepass", "${REDIS_PASSWORD}"]
+    container_name: ftxampp_redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./data/redis_data:/data
+    restart: unless-stopped
+    networks:
+      - lamp-network
+
+  redis-insight:
+    image: redis/redisinsight:latest
+    container_name: ftxampp_redisinsight
+    depends_on:
+      - redis
+    ports:
+      - "5540:5540"
+    volumes:
+      - ./data/redis_insight_data:/data
+    restart: unless-stopped
+    networks:
+      - lamp-network
+
+networks:
+  lamp-network:
+    driver: bridge
