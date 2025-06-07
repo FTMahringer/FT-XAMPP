@@ -7,8 +7,10 @@ The dashboard supports automatic link detection, `.htaccess` file checking, and 
 
 ## 🧰 Requirements
 
-- Docker (>= 20.10)  
-- Docker Compose (>= 1.29)
+- Docker (I used V 28.1.1)
+- Docker Compose (I used V 2.36-desktop.1)
+
+To find out what version oyu run, just type `docker -v` and `docker compose version`
 
 ## ⚙️ Installation
 
