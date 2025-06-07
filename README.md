@@ -14,8 +14,8 @@ The dashboard supports automatic link detection, `.htaccess` file checking, and 
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/<your-username>/dashboard.git
-cd dashboard
+git clone https://github.com/FTMahringer/FT-XAMPP.git
+cd FT-XAMPP
 
 # 2. Copy the environment file
 cp .env .env.local
@@ -58,6 +58,7 @@ docker-compose up -d
 - `mariadb:latest`  
 - `phpmyadmin/phpmyadmin`  
 - `redis:latest`
+- `redisinsight:latest`
 
 ## 🧪 Healthchecks
 
