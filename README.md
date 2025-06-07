@@ -95,7 +95,7 @@ Replace <apache-container-name> with the actual container name (e.g., ftxampp_ap
 `docker exec -it <apache-container-name> bash`
 ```
 
-If you have a public folder, the dashboard will choose that as the entrypoint, wheter you have a index.php in the root folder or not.
+If there is a public folder, the dashboard will choose it as the entry point, even if index.php exists in the root.
 
 ---
 
