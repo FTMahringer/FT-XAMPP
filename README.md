@@ -80,7 +80,7 @@ You can list all running containers and access the Apache container using the fo
 
 `docker exec -it <apache-container-name> bash`
 
-## 🗂️ Creating Projects
+# 🗂️ Creating Projects
 
 Projects should be created inside the `htdocs` folder, just like with classic XAMPP setups.
 
@@ -90,8 +90,6 @@ Projects should be created inside the `htdocs` folder, just like with classic XA
 - Clicking the button opens a small popup where you can **edit** the `.htaccess` file before saving it into the project.
 
 The **base `.htaccess`** template is located inside the `htdocs` folder. All new projects will use that as the starting point for `.htaccess` generation and customization.
-
----
 
 ---
 
