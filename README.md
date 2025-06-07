@@ -69,10 +69,3 @@ Redis and MariaDB are defined as dependencies via `depends_on`.
 
 MIT License – free for personal and commercial use.
 
----
-
-**🔍 Tags:**  
-`php`, `apache`, `docker`, `mysql`, `redis`, `dashboard`, `htaccess`, `local-dev`, `frontend`, `darkmode`
-
-**📄 Short Description:**  
-Dockerized PHP dashboard with automatic project linking, light/dark mode support, and `.htaccess` management.
