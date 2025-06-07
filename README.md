@@ -94,6 +94,7 @@ You can list all running containers and access the Apache container using the fo
 `docker exec -it <apache-container-name> bash`
 
 If you have a public folder, the dashboard will choose that as the entrypoint, wheter you have a index.php in the root folder or not.
+
 ---
 
 ## 📜 License
