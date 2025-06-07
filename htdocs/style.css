@@ -1,0 +1,409 @@
+/* ===========================
+   Global Theme Variables
+=========================== */
+:root {
+  /* Primärfarben (Light Mode) */
+  --primary: #007bff;
+  --secondary: #6c757d;
+  --success: #28a745;
+  --warning: #ffc107;
+  --danger: #dc3545;
+
+  /* Hintergrund- und Text-Grundfarben (Light Mode) */
+  --bg-color: #f3f4f6;        /* Haupt-Hintergrund */
+  --text-color: #343a40;      /* Haupt-Textfarbe */
+  --card-bg: #ffffff;         /* Karten / Container */
+  --gray-light: #e9ecef;      /* Hellgraue Akzente (z. B. Border, Badges im Light) */
+
+  /* Input- und Button-Farben (Light Mode) */
+  --input-bg: #ffffff;
+  --input-text: #343a40;
+  --input-border: #ced4da;
+  --button-bg: var(--primary);
+  --button-text: #ffffff;
+  --button-hover-bg: #0056b3;
+
+  /* Badge-Farben (Light Mode) */
+  --badge-bg: var(--gray-light);
+  --badge-text: #343a40;
+
+  /* Modal-Hintergrund (Overlay) */
+  --modal-overlay: rgba(0, 0, 0, 0.5);
+}
+
+/* ===========================
+   Dark-Mode Überschreibungen
+=========================== */
+[data-theme="dark"] {
+  /* Primärfarben im Dark Mode (kann identisch bleiben oder leicht aufgehellt) */
+  --primary: #3399ff;        /* etwas heller für bessere Sichtbarkeit */
+  --secondary: #adb5bd;
+  --success: #71d88b;
+  --warning: #ffc94d;
+  --danger: #ff6b6b;
+
+  /* Hintergrund- und Text-Farben im Dark Mode */
+  --bg-color: #1e1e2f;       /* dunkler Hintergrund */
+  --text-color: #e1e1e8;     /* fast weißer Text */
+  --card-bg: #2c2c3a;        /* dunkles Card-Panel */
+  --gray-light: #3a3a4a;     /* Abgrenzungslinien, Badge-Hintergründe */
+
+  /* Input- und Button-Farben im Dark Mode */
+  --input-bg: #2c2c3a;       /* dunkles Input-Feld */
+  --input-text: #e1e1e8;     /* heller Text im Input */
+  --input-border: #4a4a5a;   /* dunkler Rahmen */
+  --button-bg: var(--primary);
+  --button-text: #ffffff;
+  --button-hover-bg: #1d6fb8;
+
+  /* Badge-Farben im Dark Mode */
+  --badge-bg: #3a3a4a;
+  --badge-text: #e1e1e8;
+
+  /* Modal-Hintergrund (Overlay) */
+  --modal-overlay: rgba(0, 0, 0, 0.7);
+}
+
+/* ===========================
+   Base Styles (Anwendung überall)
+=========================== */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 20px;
+  min-height: 100vh;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* ===========================
+   Header
+=========================== */
+header {
+  background-color: var(--primary);
+  color: #ffffff;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  margin-bottom: 30px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 1.75rem;
+}
+
+.btn-toggle-theme {
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+/* ===========================
+   Layout (Grid)
+=========================== */
+.dashboard-column {
+  background: var(--card-bg);
+  padding: 25px;
+  border-radius: 1rem;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  transition: background 0.3s, box-shadow 0.3s;
+}
+
+.projects-column {
+  flex: 2;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.services-column {
+  flex: 1;
+  position: sticky;
+  top: 20px;
+  height: fit-content;
+}
+
+/* ===========================
+   Typografie
+=========================== */
+h2 {
+  margin-top: 0;
+  color: var(--text-color);
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--gray-light);
+  transition: border-color 0.3s;
+}
+
+/* ===========================
+   Projekt-Liste (Ul / Li)
+=========================== */
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  margin: 15px 0;
+  background-color: var(--card-bg);
+  padding: 15px;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  transition: transform 0.2s ease, background-color 0.3s;
+}
+
+/* Hover im Light vs. Dark */
+li:hover {
+  background-color: 
+    /* im Light Mode hell: */
+    var(--badge-bg);
+  transform: scale(1.01);
+}
+
+[data-theme="dark"] li:hover {
+  /* im Dark Mode etwas helleres Grau: */
+  background-color: #3a3a4a;
+}
+
+/* Link zum Projekt */
+a.project-link {
+  display: block;
+  padding: 10px 0;
+  text-decoration: none;
+  color: var(--primary);
+  font-size: 1.2em;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+a.project-link:hover {
+  text-decoration: underline;
+  color: 
+    /* helle Abstim­­mung für Dark vs. Light: */
+    var(--button-hover-bg);
+}
+
+/* Metadaten unter Projekttitel */
+.project-meta {
+  font-size: 0.9em;
+  color: var(--secondary);
+  margin-top: 8px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  transition: color 0.3s;
+}
+
+.project-meta span {
+  background: var(--badge-bg);
+  color: var(--badge-text);
+  padding: 4px 10px;
+  border-radius: 20px;
+  transition: background 0.3s, color 0.3s;
+}
+
+/* Warn- / Erfolgshinweis (.htaccess) */
+.text-danger {
+  color: var(--danger) !important;
+}
+
+.text-success {
+  color: var(--success) !important;
+}
+
+/* ===========================
+   Services-Liste (Buttons & Badges)
+=========================== */
+.services-column ul li {
+  background-color: var(--card-bg);
+  transition: background-color 0.3s;
+}
+
+.services-column a {
+  font-weight: bold;
+  text-decoration: none;
+  color: var(--primary);
+  transition: color 0.3s;
+}
+
+.services-column a:hover {
+  color: var(--button-hover-bg);
+}
+
+/* Badges unter Service */
+.services-column .badge {
+  background: var(--badge-bg);
+  color: var(--badge-text);
+  transition: background 0.3s, color 0.3s;
+}
+
+/* ===========================
+   Formulare & Buttons
+=========================== */
+input[type="search"],
+textarea,
+input,
+select {
+  background-color: var(--input-bg);
+  color: var(--input-text);
+  border: 1px solid var(--input-border);
+  border-radius: 4px;
+  padding: 8px 10px;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+/* Suchleiste spezifisch */
+.search-bar {
+  background-color: var(--input-bg);
+  color: var(--input-text);
+  border: 1px solid var(--input-border);
+  border-radius: 4px;
+  transition: all 0.3s;
+}
+
+.search-bar::placeholder {
+  color: var(--secondary);
+}
+
+/* Buttons */
+button {
+  padding: 6px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: var(--button-bg);
+  color: var(--button-text);
+  border: none;
+  margin-top: 10px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+button:hover {
+  background-color: var(--button-hover-bg);
+}
+
+/* Spezielle .btn-warning / .btn-success im Dark */
+.btn-warning {
+  background-color: var(--warning);
+  color: #1e1e2f;
+}
+
+.btn-warning:hover {
+  background-color: #e0aa00;
+  color: #ffffff;
+}
+
+.btn-success {
+  background-color: var(--success);
+  color: #ffffff;
+}
+
+.btn-success:hover {
+  background-color: #218838;
+}
+
+/* ===========================
+   Modal (Overlay & Content)
+=========================== */
+/* Overlay */
+.modal-backdrop.show {
+  background-color: var(--modal-overlay) !important;
+}
+
+/* Modal-Inhalt */
+.modal-content {
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Textarea im Modal */
+#htaccess-editor {
+  background-color: var(--input-bg);
+  color: var(--input-text);
+  border: 1px solid var(--input-border);
+}
+
+/* Close-Button */
+.modal-header .btn-close {
+  filter: invert( var(--text-color) == #ffffff ? 1 : 0 ); /* dunkle/smart Icon-Farbe */
+}
+
+/* ===========================
+   Weitere Elemente / Feinschliff
+=========================== */
+/* In Dark Mode sollten horizontale Linien angepasst werden */
+[data-theme="dark"] h2 {
+  border-color: #3a3a4a;
+}
+
+/* Scrollbar-Anpassung (optional, aber stimmiger) */
+.projects-column::-webkit-scrollbar {
+  width: 8px;
+}
+.projects-column::-webkit-scrollbar-track {
+  background: var(--card-bg);
+}
+.projects-column::-webkit-scrollbar-thumb {
+  background: var(--gray-light);
+  border-radius: 4px;
+}
+[data-theme="dark"] .projects-column::-webkit-scrollbar-thumb {
+  background: #50505a;
+}
+
+/* ===========================
+   Responsive Anpassungen
+=========================== */
+@media (max-width: 768px) {
+  main {
+    flex-direction: column;
+  }
+
+  .projects-column {
+    max-height: none;
+  }
+
+  .services-column {
+    position: static;
+  }
+}
+
+/* ===========================
+   Dark-Mode: Karten wirklich dunkel machen
+=========================== */
+[data-theme="dark"] .bg-white {
+  background-color: var(--card-bg) !important;
+  color: var(--text-color) !important;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3) !important;
+}
+
+/* Falls du einzelne List-Items ohne bg-white hast, kannst du sie so anpassen: */
+[data-theme="dark"] .projects-column li,
+[data-theme="dark"] .services-column li {
+  background-color: var(--card-bg) !important;
+  color: var(--text-color);
+}
+
+/* Ebenfalls Buttons in den Karten (z.B. .btn-warning, .btn-success) anpassen, falls nötig */
+[data-theme="dark"] .projects-column li .btn-warning,
+[data-theme="dark"] .projects-column li .btn-success {
+  box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+}
+
+/* Optional: Karten innerhalb der Modal auch dunkel gestalten */
+[data-theme="dark"] .modal-content {
+  background-color: var(--card-bg) !important;
+  color: var(--text-color) !important;
+}
