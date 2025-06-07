@@ -1,0 +1,57 @@
+services:
+  apache:
+    build:
+      context: ./docker/php
+      dockerfile: Dockerfile.mac
+    container_name: ftxampp_apache_mac
+    ports:
+      - "8080:80"
+    volumes:
+      - ./htdocs:/var/www/html
+      - ./php.ini:/usr/local/etc/php/php.ini
+    depends_on:
+      - mariadb
+      - redis
+    restart: unless-stopped
+    networks:
+      - lamp-network
+
+  mariadb:
+    image: mariadb:latest
+    container_name: ftxampp_mariadb_mac
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - ./data/mariadb_data:/var/lib/mysql
+    restart: unless-stopped
+    networks:
+      - lamp-network
+
+  redis:
+    image: redis:latest
+    container_name: ftxampp_redis_mac
+    volumes:
+      - ./data/redis_data:/data
+    restart: unless-stopped
+    networks:
+      - lamp-network
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: ftxampp_phpmyadmin_mac
+    depends_on:
+      - mariadb
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: mariadb
+    restart: unless-stopped
+    networks:
+      - lamp-network
+
+networks:
+  lamp-network:
+    driver: bridge
