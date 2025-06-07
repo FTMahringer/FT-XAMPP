@@ -65,6 +65,21 @@ docker-compose up -d
 The Apache container includes a simple HTTP healthcheck for service monitoring.  
 Redis and MariaDB are defined as dependencies via `depends_on`.
 
+## 🛠️ Common Issues / Tips
+
+If you want to run PHP or Linux commands, make sure you're inside the Apache container.
+You can list all running containers and access the Apache container using the following commands:
+
+# List all running containers
+
+`docker ps`
+
+# Replace <apache-container-name> with the actual container name (e.g., ftxampp_apache)
+
+`docker exec -it <apache-container-name> bash`
+
+
+
 ## 📜 License
 
 MIT License – free for personal and commercial use.
