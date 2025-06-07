@@ -78,7 +78,7 @@ You can list all running containers and access the Apache container using the fo
 
 `docker exec -it <apache-container-name> bash`
 
-
+---
 
 ## 📜 License
 
