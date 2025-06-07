@@ -14,6 +14,9 @@ To find out what version you run, just type `docker -v` and `docker compose vers
 
 ## ⚙️ Installation
 
+🪟 Windows / Linux (x86)
+Use the default docker-compose.yml and Dockerfile.
+
 ```bash
 # 1. Clone the repository
 git clone https://github.com/FTMahringer/FT-XAMPP.git
@@ -27,6 +30,15 @@ cp .env .env.local
 # 4. Start the containers
 docker-compose up -d
 ```
+
+🍏 macOS (Apple Silicon or Intel)
+Use the Mac-specific Dockerfile and Compose file for best compatibility:
+
+```bash
+# Start with macOS-optimized Docker setup
+docker-compose -f docker-compose-mac.yml up --build -d
+```
+
 
 📂 Open in your browser: [http://localhost:8080](http://localhost:8080)
 
