@@ -1,0 +1,25 @@
+FROM --platform=linux/arm64 php:8.3-apache
+
+# Install dependencies
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends \
+      libzip-dev libpng-dev libjpeg-dev libfreetype6-dev \
+      libonig-dev libxml2-dev libcurl4-openssl-dev libxslt1-dev \
+      unzip git build-essential curl \
+ && docker-php-ext-configure gd --with-freetype --with-jpeg \
+ && docker-php-ext-install -j"$(nproc)" \
+      gd pdo_mysql mbstring zip opcache exif xsl soap sockets \
+ && pecl install redis \
+ && docker-php-ext-enable redis \
+ && a2enmod rewrite headers expires \
+ && rm -rf /var/lib/apt/lists/*
+
+# Copy Composer from official image (supports ARM)
+COPY --from=composer:2.8.9 /usr/bin/composer /usr/local/bin/composer
+
+# Set working directory
+WORKDIR /var/www/html
+
+# Healthcheck (optional, can remove if not needed)
+HEALTHCHECK --interval=30s --timeout=5s --retries=3 \
+  CMD curl --fail http://localhost/ || exit 1
