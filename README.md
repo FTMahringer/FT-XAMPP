@@ -69,18 +69,6 @@ docker-compose up -d
 The Apache container includes a simple HTTP healthcheck for service monitoring.  
 Redis and MariaDB are defined as dependencies via `depends_on`.
 
-## 🛠️ Common Issues / Tips
-
-If you want to run PHP or Linux commands, make sure you're inside the Apache container.
-You can list all running containers and access the Apache container using the following commands:
-
-### List all running containers
-
-`docker ps`
-
-### Replace <apache-container-name> with the actual container name (e.g., ftxampp_apache)
-
-`docker exec -it <apache-container-name> bash`
 
 # 🗂️ Creating Projects
 
@@ -93,6 +81,19 @@ Projects should be created inside the `htdocs` folder, just like with classic XA
 
 The **base `.htaccess`** template is located inside the `htdocs` folder. All new projects will use that as the starting point for `.htaccess` generation and customization.
 
+
+## 🛠️ Common Issues / Tips
+
+If you want to run PHP or Linux commands, make sure you're inside the Apache container.
+You can list all running containers and access the Apache container using the following commands:
+
+### List all running containers
+`docker ps`
+
+### Replace <apache-container-name> with the actual container name (e.g., ftxampp_apache)
+`docker exec -it <apache-container-name> bash`
+
+If you have a public folder, the dashboard will choose that as the entrypoint, wheter you have a index.php in the root folder or not.
 ---
 
 ## 📜 License
