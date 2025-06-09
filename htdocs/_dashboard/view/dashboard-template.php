@@ -20,6 +20,7 @@
 
     <main class="container">
         <div class="row g-4 flex-column-mobile">
+
             <div class="col-lg-8">
                 <div class="dashboard-column projects-column">
                     <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
