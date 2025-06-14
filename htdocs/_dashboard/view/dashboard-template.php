@@ -28,32 +28,7 @@
                         <input class="form-control w-auto search-bar" type="search" id="projectSearch" placeholder="Search Projects ..." onkeyup="filterProjects()">
                     </div>
                     <ul class="list-unstyled" id="projectList">
-                        <?php foreach ($projects as $project):
-                            $link = $project['index'] ? str_replace(dirname(__DIR__, 2), '', dirname($project['index'])) . '/' : '#';
-                            ?>
-                            <li class="mb-3 p-3 rounded shadow-sm bg-white">
-                                <a class="project-link text-decoration-none fw-bold text-primary fs-5" href="<?= $link ?>">📁 <?= htmlspecialchars($project['name']) ?></a>
-                                <div class="project-meta d-flex gap-2 flex-wrap small text-muted mt-1">
-                                    <span class="badge bg-light text-dark">🛠️ <?= $project['type'] ?></span>
-                                    <span class="badge bg-light text-dark">🕓 created at: <?= $project['created'] ?></span>
-                                </div>
-                                <?php if ($project['index']): ?>
-                                    <?php if (!$project['htaccessExists']): ?>
-                                        <div class="mt-2 text-danger fw-semibold">
-                                            ⚠️ .htaccess is missing<br>
-                                            <button class="btn btn-warning btn-sm mt-1"
-                                                    onclick="showEditor(this, '<?= dirname($project['index']) ?>', `<?= addslashes(file_get_contents(__DIR__ . '/../default.htaccess')) ?>`)">
-                                                + Add .htaccess
-                                            </button>
-                                        </div>
-                                    <?php else: ?>
-                                        <div class="mt-2 text-success fw-semibold">
-                                            ✅ .htaccess found
-                                        </div>
-                                    <?php endif; ?>
-                                <?php endif; ?>
-                            </li>
-                        <?php endforeach; ?>
+						<?php require_once('show_projects.php'); ?>
                     </ul>
                 </div>
             </div>
@@ -88,53 +63,63 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="htaccessModal" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="fileEditModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Edit .htaccess</h5>
+                <h5 class="modal-title" id="fileModalTitle">Edit File</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cancel"></button>
             </div>
             <div class="modal-body">
-                <textarea id="htaccess-editor" class="form-control" rows="12"></textarea>
+                <textarea id="file-editor" class="form-control" rows="12"></textarea>
             </div>
             <div class="modal-footer">
-                <button onclick="saveHtaccess()" class="btn btn-success">✅ Save</button>
+                <button onclick="saveFile()" class="btn btn-success">✅ Save</button>
                 <button class="btn btn-secondary" data-bs-dismiss="modal">❌ Cancel</button>
             </div>
         </div>
     </div>
 </div>
 
+
+
 <script>
-    let currentHtaccessPath = "";
+    let currentFilePath = "";
 
-    function showEditor(btn, path, defaultContent) {
-        currentHtaccessPath = path;
-        document.getElementById("htaccess-editor").value = defaultContent;
-        const modal = new bootstrap.Modal(document.getElementById('htaccessModal'));
-        modal.show();
-    }
+	function showFileEditor(btn, path, defaultContent, title = "Edit File") {
+		currentFilePath = path;
+		document.getElementById("fileModalTitle").textContent = title;
+		document.getElementById("file-editor").value = defaultContent;
+		const modal = new bootstrap.Modal(document.getElementById('fileEditModal'));
+		modal.show();
+	}
 
-    function saveHtaccess() {
-        const content = document.getElementById("htaccess-editor").value;
+	function saveFile() {
+		const content = document.getElementById("file-editor").value;
 
-        fetch('', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: new URLSearchParams({
-                path: currentHtaccessPath,
-                content: content
-            })
-        }).then(r => r.text()).then(result => {
-            if (result === 'OK') {
-                alert('.htaccess saved!');
-                location.reload();
-            } else {
-                alert('Error saving .htaccess!');
-            }
-        });
-    }
+		console.log("Saving to: ", currentFilePath); // Add this line!
+
+		fetch('/_dashboard/FileEditor.php', {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+			body: new URLSearchParams({
+				filepath: currentFilePath,
+				content: content
+			})
+		})
+		.then(r => r.text())
+		.then(result => {
+			console.log(result); // See what the server really responds
+			if (result === 'OK') {
+				alert('File saved!');
+				location.reload();
+			} else {
+				alert('Error saving file!\n' + result);
+			}
+		});
+	}
+
+
 
     function toggleTheme() {
         const isDark = document.documentElement.getAttribute("data-theme") === "dark";
