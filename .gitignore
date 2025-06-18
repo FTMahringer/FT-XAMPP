@@ -84,3 +84,12 @@ data
 .idea/modules.xml
 .idea/php.xml
 .idea/vcs.xml
+
+
+# Ignore everything inside htdocs
+htdocs/*
+
+# Except index.php, .htaccess, and _dashboard
+!htdocs/index.php
+!htdocs/.htaccess
+!htdocs/_dashboard/
