@@ -5,7 +5,7 @@ services:
       dockerfile: Dockerfile.mac
     container_name: ftxampp_apache_mac
     ports:
-      - "8080:80"
+      - "80:80"
     volumes:
       - ./htdocs:/var/www/html
       - ./php.ini:/usr/local/etc/php/php.ini
@@ -45,7 +45,7 @@ services:
     depends_on:
       - mariadb
     ports:
-      - "8081:80"
+      - "8080:80"
     environment:
       PMA_HOST: mariadb
     restart: unless-stopped
