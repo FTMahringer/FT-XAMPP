@@ -6,8 +6,8 @@ The dashboard supports automatic link detection, `.htaccess` file checking, and 
 
 ## 🧰 Requirements
 
-- Docker (I used V 28.1.1)  
-- Docker Compose (I used V 2.36-desktop.1)
+- Docker  
+- Docker Compose
 
 To find out what version you run, just type:
 ```bash
