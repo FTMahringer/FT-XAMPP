@@ -8,7 +8,7 @@ The dashboard supports automatic link detection, `.htaccess` file checking, and 
 
 Here is the new Version that uses a more modern aproach: [FT-XAMPP-modern](https://github.com/FTMahringer/FT-XAMPP-modern).
 
-
+<!-- 
 ## 🧰 Requirements
 
 - Docker  
