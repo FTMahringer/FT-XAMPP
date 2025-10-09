@@ -4,11 +4,12 @@ This is a lightweight dashboard project running on PHP, Apache, MySQL, and Redis
 It serves as a local overview or entry point for various projects located in the `htdocs` directory.  
 The dashboard supports automatic link detection, `.htaccess` file checking, and a light/dark theme switch.
 
+<!-- 
 ## New Version
 
 Here is the new Version that uses a more modern aproach: [FT-XAMPP-modern](https://github.com/FTMahringer/FT-XAMPP-modern).
+-->
 
-<!-- 
 ## 🧰 Requirements
 
 - Docker  
